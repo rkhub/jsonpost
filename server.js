@@ -38,11 +38,11 @@ var onreq = function (req, res)
                 });
                 //res.setHeader('Content-Type', 'application/json');
                 res.writeHead(200, {'Content-Type': 'application/json' });
-                res.end(JSON.stringify(filteredEpisodes, null, 3));
+                res.end(JSON.stringify({'response':filteredEpisodes}, null, 3));
             }else{
                 res.writeHead(400, {'Content-Type': 'application/json' });
-                res.write('Could not decode request: JSON parsing failed');
-                res.end();
+                //res.write('{"error": "Could not decode request: JSON parsing failed"}');
+                res.end(JSON.stringify({'error': 'Could not decode request: JSON parsing failed'}));
             }
 
         });

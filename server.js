@@ -254,6 +254,7 @@ var onreq = function (req, res)
         var body = '';
         req.on('data', function (data)
         {
+            console.log("DATA" + data);
             body += data;
 
         });
@@ -268,15 +269,23 @@ var onreq = function (req, res)
                                       filteredEpisodes.push(_.pick(i, 'image', 'slug', 'title'));
                                     }
                                 });
-            res.setHeader('Content-Type', 'application/json');
-            res.writeHead(200);
+            //res.setHeader('Content-Type', 'application/json');
+            res.writeHead(200, {'content-type': 'application/json' });
             res.end(JSON.stringify(filteredEpisodes, null, 3));
 
         });
 
         req.on('error', function(e) {
-          res.status(400).send('Could not decode request: JSON parsing failed');
+          console.log("test");
+          res.writeHead(400, {'content-type': 'application/json' });
+          res.write('Could not decode request: JSON parsing failed');
+          res.end();
+
         });
+    }else{
+
+        res.writeHead(200, {'content-type': 'application/json'});
+        res.end('No Post Occurred, Please Try again!');
     }
 }
 var port = process.env.PORT || 3000;

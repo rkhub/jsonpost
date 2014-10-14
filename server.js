@@ -5,14 +5,13 @@ var episodes ;
 
 var onreq = function (req, res)
 {
-    timeout(req, res, 60)
+    timeout(req, res, 30)
 
     if(req.method == 'POST')
     {
         var body = '';
         req.on('data', function (data)
         {
-            //console.log("DATA" + data);
             body += data;
 
         });
@@ -20,7 +19,6 @@ var onreq = function (req, res)
         req.on('end', function ()
 
         {
-            //var episodes = JSON.parse(body);
 
             try{
                 episodes = JSON.parse(body);
@@ -41,12 +39,10 @@ var onreq = function (req, res)
                         filteredEpisodes.push(iObj);
                     }
                 });
-                //console.log(JSON.stringify(filteredEpisodes, null, 3));
                 res.writeHead(200, {'Content-Type': 'application/json' });
                 res.end(JSON.stringify({'response':filteredEpisodes}, null, 3));
             }else{
                 res.writeHead(400, {'Content-Type': 'application/json' });
-                //res.write('{"error": "Could not decode request: JSON parsing failed"}');
                 res.end(JSON.stringify({'error': 'Could not decode request: JSON parsing failed'}));
             }
 
@@ -58,17 +54,14 @@ var onreq = function (req, res)
         });
 
         req.on('error', function(e) {
-          //console.log("test");
           res.writeHead(400, {'Content-Type': 'application/json' });
-          //res.write('Some Error Occured!');
           res.end(JSON.stringify({'error': 'Could not decode request: JSON parsing failed'}));
 
         });
 
     }else{
 
-        res.writeHead(200, {'Content-Type': 'application/json'});
-        //res.end('No Post Occurred, Please Try again!');
+        res.writeHead(400, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({'error': 'No Post Occurred, Please Try again!'}));
     }
 }

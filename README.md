@@ -21,7 +21,7 @@ node server
 ```
 
 ## Test through Curl
-#  install Curl from  http://curl.haxx.se/docs/ if you don't already have it
+Install Curl from  http://curl.haxx.se/docs/ if you don't already have it
 
 With the follwing example
 

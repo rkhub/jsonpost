@@ -38,7 +38,9 @@ var onreq = function (req, res)
                 });
                 //res.setHeader('Content-Type', 'application/json');
                 res.writeHead(200, {'Content-Type': 'application/json' });
-                res.end(JSON.stringify({'response':filteredEpisodes}, null, 3));
+                //var obj = _.object(filteredEpisodes);
+                //res.end(JSON.stringify({'response': obj}, null, 3));
+                res.end(JSON.stringify(filteredEpisodes, null, 3));
             }else{
                 res.writeHead(400, {'Content-Type': 'application/json' });
                 //res.write('{"error": "Could not decode request: JSON parsing failed"}');
@@ -60,11 +62,12 @@ var onreq = function (req, res)
 
         });
 
-    }/*else{
+    }else{
 
         res.writeHead(200, {'Content-Type': 'application/json'});
-        res.end('No Post Occurred, Please Try again!');
-    }*/
+        //res.end('No Post Occurred, Please Try again!');
+        res.end(JSON.stringify({'error': 'No Post Occurred, Please Try again!'}));
+    }
 }
 var port = process.env.PORT || 3000;
 var server = http.createServer(onreq).listen(port);

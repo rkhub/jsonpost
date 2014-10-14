@@ -34,11 +34,12 @@ var onreq = function (req, res)
                 iObj = {};
                 _.each(episodes.payload, function(i) {
                     if((i.drm === true) && (i.episodeCount > 0)){
-                        //iObj.image += i.image.showImage;
-                        //iObj.slug += i.slug;
-                        //iObj.title += i.title;
-                        filteredEpisodes.push(_.pick(i, 'image', 'slug', 'title'));
-                        console.log(filteredEpisodes);
+                        iObj.image = i.image.showImage;
+                        iObj.slug = i.slug;
+                        iObj.title = i.title;
+                        //filteredEpisodes.push(_.pick(i, 'image', 'slug', 'title'));
+                        filteredEpisodes.push(iObj);
+                        console.log(JSON.stringify(iObj, null, 3));
                     }
                 });
                 //res.setHeader('Content-Type', 'application/json');

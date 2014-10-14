@@ -55,16 +55,16 @@ var onreq = function (req, res)
         req.on('error', function(e) {
           //console.log("test");
           res.writeHead(400, {'Content-Type': 'application/json' });
-          res.write('Some Error Occured!');
-          res.end();
+          //res.write('Some Error Occured!');
+          res.end(JSON.stringify({'error': 'Could not decode request: JSON parsing failed'}));
 
         });
 
-    }else{
+    }/*else{
 
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end('No Post Occurred, Please Try again!');
-    }
+    }*/
 }
 var port = process.env.PORT || 3000;
 var server = http.createServer(onreq).listen(port);

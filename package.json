@@ -1,0 +1,8 @@
+{
+  "name": "jsonPostApp",
+  "version": "0.0.1",
+  "description": "This is a json post App",
+  "dependencies": {
+    "underscore": "^1.7.0"
+  }
+}

@@ -31,16 +31,19 @@ var onreq = function (req, res)
 
             var filteredEpisodes = [];
             if(_.isObject(episodes) && episodes.hasOwnProperty('payload')){
+                iObj = {};
                 _.each(episodes.payload, function(i) {
                     if((i.drm === true) && (i.episodeCount > 0)){
+                        //iObj.image += i.image.showImage;
+                        //iObj.slug += i.slug;
+                        //iObj.title += i.title;
                         filteredEpisodes.push(_.pick(i, 'image', 'slug', 'title'));
+                        console.log(filteredEpisodes);
                     }
                 });
                 //res.setHeader('Content-Type', 'application/json');
                 res.writeHead(200, {'Content-Type': 'application/json' });
-                //var obj = _.object(filteredEpisodes);
-                //res.end(JSON.stringify({'response': obj}, null, 3));
-                res.end(JSON.stringify(filteredEpisodes, null, 3));
+                res.end(JSON.stringify({'response':filteredEpisodes}, null, 3));
             }else{
                 res.writeHead(400, {'Content-Type': 'application/json' });
                 //res.write('{"error": "Could not decode request: JSON parsing failed"}');

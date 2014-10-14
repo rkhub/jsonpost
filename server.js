@@ -231,11 +231,13 @@
     "totalRecords": 75
 };*/
 var http = require('http');
+var timeout = require('request-timeout');
 var _    = require('underscore');
 var items = [];
 
 var onreq = function (req, res)
 {
+    timeout(req, res, 20)
   //var episodesParsed = JSON.parse(episodes);
   //res.write('hello world');
 
@@ -285,6 +287,11 @@ var onreq = function (req, res)
 
         });
 
+        req.on('timeout', function() {
+          console.log('The request timed out')
+          res.end('The request timed out')
+        });
+
         req.on('error', function(e) {
           console.log("test");
           res.writeHead(400, {'content-type': 'application/json' });
@@ -301,6 +308,5 @@ var onreq = function (req, res)
 }
 var port = process.env.PORT || 3000;
 var server = http.createServer(onreq).listen(port);
-server.timeout = 10000;
 console.log("listening on port " + port);
 

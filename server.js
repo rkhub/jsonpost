@@ -237,7 +237,7 @@ var items = [];
 
 var onreq = function (req, res)
 {
-    timeout(req, res, 20)
+    timeout(req, res, 60)
   //var episodesParsed = JSON.parse(episodes);
   //res.write('hello world');
 

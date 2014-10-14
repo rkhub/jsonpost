@@ -301,6 +301,6 @@ var onreq = function (req, res)
 }
 var port = process.env.PORT || 3000;
 var server = http.createServer(onreq).listen(port);
-server.timeout = 1000;
+server.timeout = 10000;
 console.log("listening on port " + port);
 

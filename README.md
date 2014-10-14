@@ -21,7 +21,7 @@ node server
 ```
 
 ## Test through Curl
-### Install Curl from  http://curl.haxx.se/docs/ if you don't already have it
+Install Curl if you don't already have it  http://curl.haxx.se/docs/
 
 With the follwing example
 
@@ -58,7 +58,7 @@ curl -H "Content-Type: application/json" -d '{
 
 ##Heroku Deployment
 
-The application's end point, It can also me tested using curl.
+The application's end point, It can also be tested using curl.
 ```
 http://infinite-scrubland-7457.herokuapp.com/
 ```

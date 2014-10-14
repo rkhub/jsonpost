@@ -2,6 +2,7 @@ var http = require('http');
 var timeout = require('request-timeout');
 var _    = require('underscore');
 var items = [];
+var episodes ;
 
 var onreq = function (req, res)
 {
@@ -18,8 +19,16 @@ var onreq = function (req, res)
         });
 
         req.on('end', function ()
+
         {
-            var episodes = JSON.parse(body);
+            //var episodes = JSON.parse(body);
+
+            try{
+                episodes = JSON.parse(body);
+            }catch(e){
+                episodes = null;
+            }
+
             var filteredEpisodes = [];
             if(_.isObject(episodes) && episodes.hasOwnProperty('payload')){
                 _.each(episodes.payload, function(i) {
@@ -44,7 +53,7 @@ var onreq = function (req, res)
         });
 
         req.on('error', function(e) {
-          console.log("test");
+          //console.log("test");
           res.writeHead(400, {'Content-Type': 'application/json' });
           res.write('Some Error Occured!');
           res.end();

@@ -232,6 +232,7 @@
 };*/
 var http = require('http');
 var _    = require('underscore');
+var items = [];
 
 var onreq = function (req, res)
 {
@@ -254,34 +255,44 @@ var onreq = function (req, res)
         var body = '';
         req.on('data', function (data)
         {
-            console.log("DATA" + data);
+            //console.log("DATA" + data);
             body += data;
 
         });
 
         req.on('end', function ()
         {
+            /*items.push(body);
+            res.end('OK\n');
+            console.log("Test" + items);*/
             var episodes = JSON.parse(body);
 
             var filteredEpisodes = [];
-            _.each(episodes.payload, function(i) {
+            if(_.isObject(episodes) && episodes.hasOwnProperty('payload')){
+                _.each(episodes.payload, function(i) {
                                     if((i.drm === true) && (i.episodeCount > 0)){
                                       filteredEpisodes.push(_.pick(i, 'image', 'slug', 'title'));
                                     }
                                 });
-            //res.setHeader('Content-Type', 'application/json');
-            res.writeHead(200, {'content-type': 'application/json' });
-            res.end(JSON.stringify(filteredEpisodes, null, 3));
+                //res.setHeader('Content-Type', 'application/json');
+                res.writeHead(200, {'content-type': 'application/json' });
+                res.end(JSON.stringify(filteredEpisodes, null, 3));
+            }else{
+                res.writeHead(400, {'content-type': 'application/json' });
+                res.write('Could not decode request: JSON parsing failed');
+                res.end();
+            }
 
         });
 
         req.on('error', function(e) {
           console.log("test");
           res.writeHead(400, {'content-type': 'application/json' });
-          res.write('Could not decode request: JSON parsing failed');
+          res.write('Some Error Occured!');
           res.end();
 
         });
+
     }else{
 
         res.writeHead(200, {'content-type': 'application/json'});
